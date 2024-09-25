@@ -74,6 +74,15 @@ class Stack{
                 cout << arr[i] << endl;
             }
         }
+
+        void reverse(){
+            int temp;
+            for(int i = 0; i <= top/2; i++){
+                temp = arr[i];
+                arr[i] = arr[top-i];
+                arr[top-i] = temp;
+            }
+        }
 };
 int main(){
     Stack s1;
