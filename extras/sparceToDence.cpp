@@ -3,22 +3,22 @@ using namespace std;
 
 int main(){
 
-    int sMatrix[][3] = {{0,2,5},{1,0,2},{0,0,3},{1,2,7},{2,2,10}};
+    int sMatrix[][3] = {{5, 5, 5},{0, 1, 5},{0, 2, 18},{2, 1, 14},{3, 1, 15},{3, 3, 4}};
 
-    int dMatrix[3][3];
+    int dMatrix[6][6];
 
-    for(int i=0; i<3; i++){
-        for(int j=0; j<3; j++){
+    for(int i=0; i<6; i++){
+        for(int j=0; j<6; j++){
             dMatrix[i][j] = 0;
         }
     }
 
-    for(int i=0; i<5; i++){
+    for(int i=0; i<6; i++){
         dMatrix[sMatrix[i][0]][sMatrix[i][1]] = sMatrix[i][2];
     }
 
-    for(int i=0; i<3; i++){
-        for(int j=0; j<3; j++){
+    for(int i=0; i<6; i++){
+        for(int j=0; j<6; j++){
             cout << dMatrix[i][j] << " ";
         }
         cout << endl;
