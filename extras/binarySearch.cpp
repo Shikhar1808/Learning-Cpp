@@ -19,6 +19,9 @@ int binarySearch(int A[], int low, int high, int key) {
     }
 }
 
+//time complexity of binary search is O(logn)
+//space complexity of binary search is O(logn) because of recursion stack
+
 int main() {
     int A[] = {2, 5, 6, 7, 8, 9, 10, 15, 16, 18, 19, 20};
     int n = sizeof(A) / sizeof(A[0]);

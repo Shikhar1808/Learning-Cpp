@@ -80,6 +80,9 @@ int main() {
     s.push(1);
     s.push(5);
 
+    int x = s.pop();;
+    cout << "Popped element: " << x << endl;
+
     cout << "Original stack: ";
     s.display();
 

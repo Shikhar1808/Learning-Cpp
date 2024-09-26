@@ -21,6 +21,33 @@ void bubbleSort(int A[], int n) {
         cout << endl;
     }
 }
+//time complexity of bubble sort is O(n^2) and space complexity is O(1)
+
+void bubbleSortRecursive(int A[], int n) {
+    if (n == 1) {
+        return;
+    }
+
+    bool swapped = false;
+    for (int i = 0; i < n - 1; i++) {
+        if (A[i] > A[i + 1]) {
+            swap(A[i], A[i + 1]);
+            swapped = true;
+        }
+    }
+
+    cout << "Pass for n=" << n << ": ";
+    for (int i = 0; i < n; i++) {
+        cout << A[i] << " ";
+    }
+    cout << endl;
+
+    if (!swapped) {
+        return;
+    }
+    bubbleSortRecursive(A, n - 1);
+}
+//time complexity of recursive bubble sort is O(n^2) and space complexity is O(n)
 
 int main() {
     int A[] = {77, 33, 44, 11, 88, 22, 66, 55};
@@ -33,6 +60,7 @@ int main() {
     cout << endl << endl;
 
     bubbleSort(A, n);
+    //bubbleSortRecursive(A, n);
 
     cout << "\nSorted array: ";
     for (int i = 0; i < n; i++) {

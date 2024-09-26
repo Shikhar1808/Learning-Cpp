@@ -13,6 +13,9 @@ void selectionSort(int arr[], int n){
     }
 }
 
+//time complexity of selection sort is O(n^2) in all cases
+//space complexity of selection sort is O(1) because it uses a constant amount of extra space
+
 int main(){
 
     int arr[] = {5, 4, 3, 2, 1,8,7,5,1,10};

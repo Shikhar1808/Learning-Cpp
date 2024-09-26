@@ -55,9 +55,39 @@ class TwoStack{
                 return -1;
             }
         }
+
+        void printStack1(){
+            cout<<"Stack 1: ";
+            for(int i = 0; i <= top1; i++){
+                cout << arr[i] << " ";
+            }
+            cout << endl;
+        }
+
+        void printStack2(){
+            cout<<"Stack 2: ";
+            for(int i = size - 1; i >= top2; i--){
+                cout << arr[i] << " ";
+            }
+            cout << endl;
+        }
 };
 
 int main(){
+
+    TwoStack t(5);
+
+    t.push1(5);
+    t.push2(10);
+    t.push2(15);
+
+    cout << t.pop1() << endl;
+    t.push2(40);
+
+    cout << t.pop2() << endl;
+
+    t.printStack1();
+    t.printStack2();
 
     return 0;
 }
