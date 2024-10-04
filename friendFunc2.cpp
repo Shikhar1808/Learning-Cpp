@@ -4,6 +4,7 @@ using namespace std;
 void add(X o1, Y o2);
 class X;
 class Y;
+//we have declared these on top, otherwise these will not be recognized by the compiler as they are used before declaration
 
 class X{
     int data;
