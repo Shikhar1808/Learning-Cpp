@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-const int BURST_TIME_MAX = 1000;
+int BURST_TIME_MAX = 1000;
 
 class Process {
 public:
