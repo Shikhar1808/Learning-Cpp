@@ -14,22 +14,7 @@ public:
     }
 };
 
-void createTree(Node* root) {
-    int data;
-    cout << "Enter the data of the left child of " << root->data << ": ";
-    cin >> data;
-    if (data != -1) {
-        root->left = new Node(data);
-        createTree(root->left);
-    }
 
-    cout << "Enter the data of the right child of " << root->data << ": ";
-    cin >> data;
-    if (data != -1) {
-        root->right = new Node(data);
-        createTree(root->right);
-    }
-}
 
 void printTree(Node* root, int space = 0, int height = 5) {
     if (root == NULL){

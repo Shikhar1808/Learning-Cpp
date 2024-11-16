@@ -74,6 +74,10 @@ class Scheduler{
         void displayResults() {
         int totalWaitingTime = 0;
         int totalTurnAroundTime = 0;
+        
+        displayExecutionOrder();
+
+        calculateTime();
 
         cout << "Process Execution Order and Waiting Times:"<<endl;
         cout << "PID\tArrival Time\tBurst Time\tWaiting Time\t Completion Time\t Turnaround Time\n";
@@ -85,7 +89,7 @@ class Scheduler{
             << processes[i].arrivalTime << "\t\t"
             << processes[i].burstTime << "\t\t"
             << processes[i].waitingTime << "\t\t"
-            << processes[i].completionTime << "\t\t"
+            << processes[i].completionTime << "\t\t\t"
             << processes[i].turnAroundTime << "\n";
         }
 
@@ -110,8 +114,6 @@ int main(){
         scheduler.addProcess(burstTime, arrivalTime);
     }
 
-    scheduler.calculateTime();
-    scheduler.displayExecutionOrder();
     scheduler.displayResults();
 
     return 0;
