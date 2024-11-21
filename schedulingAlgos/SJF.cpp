@@ -28,6 +28,7 @@ class Process{
 
 class Scheduler{
     vector<Process> processes;
+    vector<string> ganttChart;
 
     public:
         void addProcess(int burstTime, int arrivalTime){
@@ -61,6 +62,9 @@ class Scheduler{
                 }
 
                 if(idx != -1){
+
+                    ganttChart.push_back("(" + to_string(currentTime) + ") " + "P" + to_string(processes[idx].pid) + "(" + to_string(currentTime + processes[idx].burstTime) + ") ||");
+
                     processes[idx].waitingTime = currentTime - processes[idx].arrivalTime;
                     processes[idx].completionTime = currentTime + processes[idx].burstTime;
                     processes[idx].turnAroundTime = processes[idx].completionTime - processes[idx].arrivalTime;
@@ -79,6 +83,13 @@ class Scheduler{
             int totalTurnAroundTime = 0;
 
             calculateTime();
+
+            cout << "\nGantt Chart:\n";
+            for (int i = 0; i< ganttChart.size(); i++){
+                cout << ganttChart[i];
+            }
+            cout << endl;
+            cout << endl;
 
             cout<<"Execution order of processes: ";
             cout<<"PID\tArrival Time\tBurst Time\tWaiting Time\tCompletion Time\tTurnaround Time\n";

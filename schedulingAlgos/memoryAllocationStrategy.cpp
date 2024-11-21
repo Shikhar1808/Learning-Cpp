@@ -34,15 +34,22 @@ class MemoryAllocator{
         }
 
         void firstFit(int blockSize){
+            int index = -1;
             for(int i=0; i<memoryChunks.size(); ++i){
                 if(memoryChunks[i].isFree && memoryChunks[i].size >= blockSize){
                     memoryChunks[i].isFree = false;
-
-                    splittingMemoryChunks(i, blockSize);
-                    return;
+                    index= i;
                 }
             }
-            cout << "Memory Allocation Failed!" << endl;
+
+            if(index == -1){
+                cout << "Memory Allocation Failed!" << endl;
+                return;
+            }
+            else{
+                splittingMemoryChunks(index, blockSize);
+            }
+            
         }
 
         void bestFit(int blockSize){

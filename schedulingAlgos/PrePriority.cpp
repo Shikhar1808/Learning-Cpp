@@ -31,6 +31,7 @@ public:
 
 class Scheduler {
     vector<Process> processes;
+    vector<string> ganttChart;
 
 public:
     void addProcess(int burstTime, int arrivalTime, int priority) {
@@ -63,11 +64,14 @@ public:
 
             // Execute the selected process for one unit of time
             processes[minPriorityIdx].remainingTime--;
+            
             if (lastExecuted != processes[minPriorityIdx].pid) {
                 cout << "Time " << currentTime << ": Process P" << processes[minPriorityIdx].pid << " started\n";
             }
             lastExecuted = processes[minPriorityIdx].pid;
-
+            
+            ganttChart.push_back("("  + to_string(currentTime) + ") " +  "P" + to_string(processes[minPriorityIdx].pid) + " (" + to_string(currentTime+1) + ") ||");
+            
             currentTime++;
 
             // If the process finishes, calculate its completion time
@@ -87,6 +91,12 @@ public:
 
         calculateTime();
 
+        cout << "\nGantt Chart:\n";
+        for (int i = 0; i< ganttChart.size(); i++){
+            cout << ganttChart[i];
+        }
+        cout << endl;
+
         cout << "\nProcess Execution Details:\n";
         cout << "PID\tArrival Time\tBurst Time\tPriority\tWaiting Time\tCompletion Time\tTurnaround Time\n";
 
@@ -104,23 +114,20 @@ public:
 
         float avgWaitingTime = (float)totalWaitingTime / processes.size();
         float avgTurnAroundTime = (float)totalTurnAroundTime / processes.size();
-        cout << "\nAverage Waiting Time: " << avgWaitingTime << endl;
+        cout << "\n\nAverage Waiting Time: " << avgWaitingTime << endl;
         cout << "Average Turnaround Time: " << avgTurnAroundTime << endl;
+        cout<<endl;
     }
 };
 
 int main() {
     Scheduler scheduler;
-    int n;
-    cout << "Enter number of processes: ";
-    cin >> n;
 
-    for (int i = 0; i < n; i++) {
-        int burstTime, arrivalTime, priority;
-        cout << "Enter burst time, arrival time, and priority for process " << i + 1 << ": ";
-        cin >> burstTime >> arrivalTime >> priority;
-        scheduler.addProcess(burstTime, arrivalTime, priority);
-    }
+    scheduler.addProcess(5, 0, 3);
+    scheduler.addProcess(3, 1, 1);
+    scheduler.addProcess(6, 2, 4);
+    scheduler.addProcess(7, 3, 2);
+    scheduler.addProcess(4, 4, 5);
 
     scheduler.displayResults();
 

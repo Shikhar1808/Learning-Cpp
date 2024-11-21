@@ -28,6 +28,7 @@ public:
 
 class Scheduler {
     vector<Process> processes;
+    vector<string> ganttChart;
 
 public:
     void addProcess(int burstTime, int arrivalTime, int priority) {
@@ -55,6 +56,8 @@ public:
                 continue;
             }
 
+            ganttChart.push_back("(" + to_string(currentTime) + ")" + "P" + to_string(processes[minPriorityIdx].pid) + "(" + to_string(currentTime + processes[minPriorityIdx].burstTime) + ") ||");
+
             Process& p = processes[minPriorityIdx];
             p.waitingTime = currentTime - p.arrivalTime;
             p.completionTime = currentTime + p.burstTime;
@@ -70,6 +73,13 @@ public:
         int totalTurnAroundTime = 0;
 
         calculateTime();
+
+        cout << "\nGantt Chart:\n";
+        for (int i = 0; i< ganttChart.size(); i++){
+            cout << ganttChart[i];
+        }
+        cout << endl;
+        cout << endl;
 
         cout << "Process Execution Order and Waiting Times:\n";
         cout << "PID\tArrival Time\tBurst Time\tPriority\tWaiting Time\tCompletion Time\tTurnaround Time\n";
@@ -95,16 +105,22 @@ public:
 
 int main() {
     Scheduler scheduler;
-    int n;
-    cout << "Enter number of processes: ";
-    cin >> n;
+    // int n;
+    // cout << "Enter number of processes: ";
+    // cin >> n;
 
-    for (int i = 0; i < n; i++) {
-        int burstTime, arrivalTime, priority;
-        cout << "Enter burst time, arrival time, and priority for process " << i + 1 << ": ";
-        cin >> burstTime >> arrivalTime >> priority;
-        scheduler.addProcess(burstTime, arrivalTime, priority);
-    }
+    // for (int i = 0; i < n; i++) {
+    //     int burstTime, arrivalTime, priority;
+    //     cout << "Enter burst time, arrival time, and priority for process " << i + 1 << ": ";
+    //     cin >> burstTime >> arrivalTime >> priority;
+    //     scheduler.addProcess(burstTime, arrivalTime, priority);
+    // }
+
+    scheduler.addProcess(5, 0, 3);
+    scheduler.addProcess(3, 1, 1);
+    scheduler.addProcess(6, 2, 4);
+    scheduler.addProcess(7, 3, 2);
+    scheduler.addProcess(4, 4, 5);
 
     scheduler.displayResults();
 

@@ -2,6 +2,7 @@
 //System should display waiting time for each process, average waiting time and execution order of processes
 
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class Process{
@@ -27,6 +28,7 @@ class Process{
 
 class Scheduler{
     Process processes[100];
+    vector<string> ganttChart;
     int numProcesses;
 
     public:
@@ -45,6 +47,10 @@ class Scheduler{
                 if(currentTime < processes[i].arrivalTime){
                     currentTime = processes[i].arrivalTime;
                 }
+
+                ganttChart.push_back("(" + to_string(currentTime) + ") " + "P" + to_string(processes[i].pid) + "(" + to_string(currentTime + processes[i].burstTime) + ") ||");
+
+
                 processes[i].waitingTime = currentTime - processes[i].arrivalTime;
                 processes[i].completionTime = currentTime + processes[i].burstTime;
                 processes[i].turnAroundTime = processes[i].completionTime - processes[i].arrivalTime;
@@ -79,6 +85,13 @@ class Scheduler{
 
         calculateTime();
 
+        cout << "\nGantt Chart:\n";
+        for (int i = 0; i< ganttChart.size(); i++){
+            cout << ganttChart[i];
+        }
+        cout << endl;
+        cout << endl;
+
         cout << "Process Execution Order and Waiting Times:"<<endl;
         cout << "PID\tArrival Time\tBurst Time\tWaiting Time\t Completion Time\t Turnaround Time\n";
 
@@ -103,16 +116,22 @@ class Scheduler{
 int main(){
 
     Scheduler scheduler;
-    int n;
-    cout<<"Enter number of processes: ";
-    cin>>n;
+    // int n;
+    // cout<<"Enter number of processes: ";
+    // cin>>n;
 
-    for(int i = 0; i<n; i++){
-        int burstTime, arrivalTime;
-        cout<<"Enter burst time and arrival time for process "<<i+1<<": ";
-        cin>>burstTime>>arrivalTime;
-        scheduler.addProcess(burstTime, arrivalTime);
-    }
+    // for(int i = 0; i<n; i++){
+    //     int burstTime, arrivalTime;
+    //     cout<<"Enter burst time and arrival time for process "<<i+1<<": ";
+    //     cin>>burstTime>>arrivalTime;
+    //     scheduler.addProcess(burstTime, arrivalTime);
+    // }
+
+    scheduler.addProcess(5, 0);
+    scheduler.addProcess(3, 1);
+    scheduler.addProcess(6, 2);
+    scheduler.addProcess(7, 3);
+    scheduler.addProcess(4, 4);
 
     scheduler.displayResults();
 
