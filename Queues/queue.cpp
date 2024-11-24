@@ -3,77 +3,79 @@ using namespace std;
 
 class Queue{
     int *arr;
-    int front, rear, size;
+    int front, rear, size, capacity;
     public:
     Queue(int s){
-        size = s;
+        capacity = s;
         arr = new int[s];
-        front = rear = -1;
+        front = 0;
+        rear = -1;
+        size = 0;
     }
+
+    ~Queue(){
+        delete[] arr;
+    }
+
     void enQueue(int value);
     int deQueue();
     void displayQueue();
+
+    bool isFull(){
+        return size == capacity;
+    }
+
+    bool isEmpty(){
+        return size == 0;
+    }
 };
 
 void Queue::enQueue(int value){
-    if((front == 0 && rear == size-1) || (rear == (front-1)%(size-1))){
+    if(isFull()){
         cout << "Queue is full" << endl;
         return;
     }
-    else if(front == -1){
-        front = rear = 0;
-        arr[rear] = value;
-    }
-    else if(rear == size-1 && front != 0){
-        rear = 0;
-        arr[rear] = value;
-    }
-    else{
-        rear++;
-        arr[rear] = value;
-    }
+    rear++;
+    arr[rear] = value;
+    size++;
 }
 
 int Queue:: deQueue(){
-    if(front == -1){
+    if(isEmpty()){
         cout << "Queue is empty" << endl;
-        return;
+        return -1;
     }
-    int data = arr[front];
-    arr[front] = -1;
-    if(front == rear){
-        front = rear = -1;
-    }
-    else if(front == size-1){
-        front = 0;
-    }
-    else{
-        front++;
-    }
-    return data;
+    int temp = arr[front];
+    front++;
+    size--;
+    return temp;
 }
 
 void Queue::displayQueue(){
-    if(front == -1){
+    if(isEmpty()){
         cout << "Queue is empty" << endl;
         return;
     }
-    if(rear >= front){
-        for(int i = front; i <= rear; i++){
-            cout << arr[i] << " ";
-        }
+    for(int i = front; i <= rear; i++){
+        cout << arr[i] << " ";
     }
-    else{
-        for(int i = front; i < size; i++){
-            cout << arr[i] << " ";
-        }
-        for(int i = 0; i <= rear; i++){
-            cout << arr[i] << " ";
-        }
-    }
+    cout << endl;
 }
 
 int main(){
+
+    Queue q(5);
+
+    q.enQueue(10);
+    q.enQueue(20);
+    q.enQueue(30);
+    q.enQueue(40);
+
+    q.displayQueue();
+
+    cout << q.deQueue() << endl;
+
+    q.displayQueue();
 
     return 0;
 }

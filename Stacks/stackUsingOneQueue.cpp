@@ -1,81 +1,112 @@
 #include <iostream>
 using namespace std;
 
-class stackUsingOneQueue{
-    int *arr;
-    int front, rear, capacity, size;
+class Stack{
+    private:
 
-    public:
+    // Queue implementation using array
+        int *arr;
+        int front, rear, size, capacity;
 
-        stackUsingOneQueue(int c){
-            arr = new int[c];
-            capacity = c;
-            front = 0;
-            rear = 0;
-            size = 0;
-        }
-
-        void push(int x){
-            if(size == capacity){
-                cout<<"Stack is full"<<endl;
+        void queueEnqueue(int x){
+            if(isFull()){
+                cout << "Stack is full" << endl;
                 return;
             }
+            rear = (rear + 1) % capacity;
             arr[rear] = x;
-            rear = (rear+1)%capacity;
             size++;
         }
 
-        int pop(){
-            if(size == 0){
-                cout<<"Stack is empty"<<endl;
+        int queueDequeue(){
+            if(isEmpty()){
+                cout << "Stack is empty" << endl;
                 return -1;
             }
-
-            int res = arr[(rear-1+capacity)%capacity];
-            rear = (rear-1+capacity)%capacity;
+            int temp = arr[front];
+            front = (front + 1) % capacity;
             size--;
-            
+            return temp;
         }
 
-        int top(){
-            if(size == 0){
-                cout<<"Stack is empty"<<endl;
-                return -1;
-            }
-            return arr[(rear-1+capacity)%capacity];
+    public:
+
+        Stack(int capacity){ // Constructor (like for queue)
+            this->capacity = capacity;
+            arr = new int[capacity];
+            front =0;
+            rear = -1;
+            size = 0;
+        }
+
+        ~Stack(){
+            delete[] arr;
         }
 
         bool isEmpty(){
             return size == 0;
         }
 
-        void display(){
-            for(int i=0; i<size; i++){
-                cout<<arr[(front+i)%capacity]<<" ";
+        bool isFull(){
+            return size == capacity;
+        }
+
+        void push(int x){
+            if(isFull()){
+                cout << "Stack is full" << endl;
+                return;
             }
-            cout<<endl;
+            queueEnqueue(x);
+
+            for(int i = 0; i < size - 1; i++){
+                queueEnqueue(queueDequeue());
+            }
+        }
+
+        int pop(){
+            if(isEmpty()){
+                cout << "Stack is empty" << endl;
+                return -1;
+            }
+            return queueDequeue();
+        }
+
+        int top(){
+            if(isEmpty()){
+                cout << "Stack is empty" << endl;
+                return -1;
+            }
+            return arr[front];
+        }
+
+        void display(){
+            if(isEmpty()){
+                cout << "Stack is empty" << endl;
+                return;
+            }
+            int count = size;
+            int i = front;
+            while(count--){
+                cout << arr[i] << " ";
+                i = (i + 1) % capacity;
+            }
+            cout << endl;
         }
 };
 
 int main(){
+    Stack s(5);
 
-    stackUsingOneQueue stack(5);
+    s.push(10);
+    s.push(20);
+    s.push(30); 
+    s.push(40);
 
-    stack.push(1);
-    stack.push(2);
-    stack.push(3);
-    stack.push(4);
-    stack.push(5);
+    s.display();
 
-    cout<<stack.top()<<endl;
+    cout << s.pop() << endl;
+    cout << s.top() << endl;
 
-    stack.display();
-
-    stack.pop();
-
-    cout<<stack.top()<<endl;
-
-    stack.display();
 
     return 0;
 }

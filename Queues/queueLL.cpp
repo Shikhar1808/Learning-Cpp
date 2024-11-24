@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 
 struct Node {
     int data;
@@ -35,7 +36,7 @@ public:
     // Peek the top element
     int peek() {
         if (top == nullptr) {
-            std::cout << "Stack is empty" << std::endl;
+            cout << "Stack is empty" << std::endl;
             return -1;
         }
         return top->data;
@@ -64,7 +65,7 @@ public:
         }
 
         if (stack2.isEmpty()) {
-            std::cout << "Queue is empty!" << std::endl;
+            cout << "Queue is empty!" <<endl;
             return -1;
         }
 
@@ -79,7 +80,7 @@ public:
         }
 
         if (stack2.isEmpty()) {
-            std::cout << "Queue is empty!" << std::endl;
+            cout << "Queue is empty!" <<endl;
             return -1;
         }
 
@@ -98,14 +99,14 @@ int main() {
     q.enqueue(20);
     q.enqueue(30);
 
-    std::cout << "Dequeued: " << q.dequeue() << std::endl;  
-    std::cout << "Front: " << q.peek() << std::endl;       
+    cout << "Dequeued: " << q.dequeue() << endl;  
+    cout << "Front: " << q.peek() << endl;       
 
     q.enqueue(40);
-    std::cout << "Dequeued: " << q.dequeue() << std::endl;  
-    std::cout << "Dequeued: " << q.dequeue() << std::endl;  
-    std::cout << "Dequeued: " << q.dequeue() << std::endl;  
-    std::cout << "Dequeued: " << q.dequeue() << std::endl;
+    cout << "Dequeued: " << q.dequeue() << endl;  
+    cout << "Dequeued: " << q.dequeue() << endl;  
+    cout << "Dequeued: " << q.dequeue() << endl;  
+    cout << "Dequeued: " << q.dequeue() << endl;
 
     return 0;
 }

@@ -53,10 +53,6 @@ Node* maxHeapify(int arr[], int size, int index){
         return NULL;
     }
 
-    if(index >= size){
-        return NULL;
-    }
-
     Node* root = new Node(arr[index]);
 
     root->left = createtree1(arr, size, index*2 + 1);
