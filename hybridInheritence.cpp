@@ -7,6 +7,10 @@ class Engine{
             cout<<"Engine constructor called"<<endl;
         }
 
+        ~Engine(){
+            cout<<"Engine destructor called"<<endl;
+        }
+
         void startEngine(){
             cout<<"Engine started"<<endl;
         }
@@ -16,6 +20,10 @@ class Wheel{
     public:
         Wheel(){
             cout<<"Wheel constructor called"<<endl;
+        }
+
+        ~Wheel(){
+            cout<<"Wheel destructor called"<<endl;
         }
 
         void rotateWheel(){
@@ -28,6 +36,10 @@ class Car: public Engine, public Wheel{
     public:
         Car(){
             cout<<"Car constructor called"<<endl;
+        }
+
+        ~Car(){
+            cout<<"Car destructor called"<<endl;
         }
 
         void startCar(){
