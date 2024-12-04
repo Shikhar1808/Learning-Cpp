@@ -6,7 +6,7 @@ void arrayException(){
     int a = 10;
     
     if(a>5)
-        throw arr;
+        throw "a is greater than 5";
     else
         cout<<"No exception thrown"<<endl;
 }

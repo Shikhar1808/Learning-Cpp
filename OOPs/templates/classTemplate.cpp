@@ -30,6 +30,23 @@ public:
     }
 };
 
+template <typename T>
+class Test{
+    private:
+        T obj;
+    public:
+        Test(T obj){
+            this->obj = obj;
+        }
+
+        T divideBy2();
+};
+
+template <typename T>
+T Test<T>::divideBy2(){
+    return obj / 2;
+}
+
 int main() {
     Stack<int> intStack;
     Stack<string> stringStack;
@@ -41,6 +58,9 @@ int main() {
     stringStack.push("Hello");
     stringStack.push("World");
     cout << "Popped from string stack: " << stringStack.pop() << endl;
+
+    Test<int> intObj(10);
+    cout << intObj.divideBy2() << endl;
 
     return 0;
 }

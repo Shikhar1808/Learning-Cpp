@@ -5,6 +5,10 @@ class c1;
 class c2;
 void exchange(c1 &o1, c2 &o2);
 
+//Friend Functions Are Not Affected by Access Specifiers
+//The placement of the friend function declaration inside the private section of a class does not make the function private.
+//Friend functions are external to the class.
+
 class c1{
     int val1;
     friend void exchange(c1 &, c2 &);
