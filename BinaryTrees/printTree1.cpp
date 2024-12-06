@@ -59,6 +59,20 @@ void printTree(Node* root){
     }
 }
 
+//node search
+Node* seachNode(Node* root, int key){
+    if(root == NULL){
+        return NULL;
+    }
+    if(root->data == key){
+        return root;
+    }
+    if(key < root->data){
+        return seachNode(root->left, key);
+    }
+    return seachNode(root->right, key);
+}
+
 int main(){
 
     int noOfNodes;
