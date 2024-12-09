@@ -27,7 +27,12 @@ class DFS{
             int vis[n] = {0}; //visited array to keep track of visited nodes and avoid revisiting them
             int start = 0;
             vector<int> ls; //vector to store the DFS traversal of the graph
-            dfs(start, adj, vis, ls);
+            // dfs(start, adj, vis, ls);
+            for(int i = 0; i < n; i++){
+                if(!vis[i]){
+                    dfs(i, adj, vis, ls);
+                }
+            }
             return ls;
         }
 };

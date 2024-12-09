@@ -39,81 +39,107 @@ void InsertAtTail(Node* &head, int data){
     temp->next = newNode; //this line means that the next of the temp's node will be the new node
 }
 
-void InsertAtMiddle(Node* &head, int data, int index){
-    Node* newNode = new Node(data);
-    if(head == NULL){
-        head = newNode;
-        return;
-    }
-    Node* temp = head;
-    for(int i=0; i<index-1; i++){
-        cout<<temp->data<<endl;
-        temp = temp->next;
-    }
-    newNode->next = temp->next;
-    temp->next = newNode;
-}
-
-void DeletionAtIndex(Node* &head, int index){
-    Node* temp = head;
-    for(int i=0; i<index-1; i++){
-        temp = temp->next;
-    }
-    Node* toDelete = temp->next;
-    temp->next = temp->next->next;
-    delete toDelete;
-}
-
-void DeletionAtHead(Node* &head){
-    Node* toDelete = head;
-    head = head->next;
-    delete toDelete;
-}
-
-void DeleteAtTail(Node* &head){
-    Node* temp = head;
-    while(temp->next->next != NULL){ //we used temp->next->next because we want to access the second last node. With the second last node, we can delete the last node
-        temp = temp->next;
-    }
-    Node* toDelete = temp->next;
-    temp->next = NULL;
-    delete toDelete;
-}
-
 void pirntLL(Node* head){
     Node* temp = head;
-    while(temp != NULL){ //temp != NULL means that the loop will run until the temp's next is not NULL
+    while(temp != NULL){
         cout<<temp->data<<"->";
-        temp = temp->next; //this line means that the temp will be equal to the next of the temp's node
+        temp = temp->next;
     }
     cout<<"NULL"<<endl;
 }
 
-void reverseLL(Node* &head){
-    Node* prev = NULL;
+void pairWiseSwapData(Node*& head){
+    //Time Complexity: O(n) because we are traversing the linked list
+    //Space Complexity: O(1) because we are not using any extra space
+
     Node* curr = head;
-    Node* next;
-    while(curr != NULL){
-        next = curr->next;
-        curr->next = prev;
-        prev = curr;
-        curr = next;
+
+    while(curr->next != NULL && curr != NULL){
+        int currData = curr->data;
+
+        if(curr->next == NULL){
+            break;
+        }
+        curr->data = curr->next->data;
+        curr->next->data = currData;
+        curr = curr->next->next;
     }
-    head = prev;
+} 
+
+Node* merge(Node* front, Node* back){
+    //Time Complexity: O(n) because we are traversing the linked list
+    //Space Complexity: O(1) because we are not using any extra space
+
+    Node* result = NULL;
+
+    if(front == NULL){
+        return back;
+    }
+    if(back == NULL){
+        return front;
+    }
+
+    if(front->data <= back->data){
+        result = front;
+        result->next = merge(front->next, back);
+    }else{
+        result = back;
+        result->next = merge(front, back->next);
+    }
+
+    return result;
+}
+
+void splitLL(Node* curr, Node** front, Node** back){
+    //Time Complexity: O(n) because we are traversing the linked list
+    //Space Complexity: O(1) because we are not using any extra space
+
+    Node* slow = curr;
+    Node* fast = curr->next;
+
+    while(fast != NULL && fast->next != NULL){
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    *front = curr;
+    *back = slow->next;
+
+    slow->next = NULL;
+}
+
+void mergeSort(Node** head){
+    Node* curr = *head;
+    
+    if(curr == NULL || curr->next == NULL){
+        return;
+    }
+
+    Node* front;
+    Node* back;
+
+    splitLL(curr, &front, &back);
+
+    mergeSort(&front);
+    mergeSort(&back);
+
+    *head = merge(front, back);
 }
 
 int main(){
 
     Node* node1 = new Node(100);
-    cout<<node1->data<<endl;
-    cout<<node1->next<<endl;
-
     Node* head = node1; //head is a pointer to the first node
-    InsertAtHead(head, 200);
-    InsertAtHead(head, 300);
     InsertAtTail(head, 400);
     InsertAtTail(head, 500);
-    InsertAtMiddle(head, 600, 2);
+    InsertAtTail(head, 200);
+    InsertAtTail(head, 300);
+    
     pirntLL(head);
+
+    mergeSort(&head);
+
+    pirntLL(head);
+
     return 0;
 }

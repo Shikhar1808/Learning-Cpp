@@ -41,6 +41,8 @@ class dijkstrasAlgorithm{
                     }
                 }
             }
+
+            return dist; // Return the distance array
         };
 
         
